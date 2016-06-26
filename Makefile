@@ -14,3 +14,6 @@ function_tp3.o: function_tp3.c bruteforce.h dinamic.h greedy.h
 
 clean:
 	rm *.o tp3.exe
+
+run:
+	make all && ./tp3.exe -d testes/teste.txt testes/resposta-pd.txt && ./tp3.exe -gu testes/teste.txt testes/resposta-gu.txt && ./tp3.exe -b testes/teste.txt testes/resposta-fb.txt && make clean
