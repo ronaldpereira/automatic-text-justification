@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "bruteforce.h"
-#include "dinamic.h"
+#include "dynamic.h"
 #include "greedy.h"
 
 int main(int argc, char *argv[])
@@ -15,20 +14,23 @@ int main(int argc, char *argv[])
 
 	if(option == 'd')
 	{
-		printf("Dinamic Programming\n");
+		printf("Dynamic Programming\n");
 		/* Function calls */
+		dynamicProgramming(input, output);
 	}
 
 	else if(option == 'g')
 	{
-		printf("Greedy Algorithm\n");
+		printf("Greedy Heuristic\n");
 		/* Function calls */
+		greedyHeuristic(input, output);
 	}
 
 	else if(option == 'b')
 	{
 		printf("Brute Force Algorithm\n");
 		/* Function calls */
+		bruteForce(input, output);
 	}
 
 	fclose(input);
