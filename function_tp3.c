@@ -8,6 +8,7 @@
 #include "greedy.h"
 #define	 INFINITO INT_MAX
 
+/* TEST */
 void imprime(int **m, int l)
 {
 	int i, j;
@@ -28,9 +29,10 @@ void imprime(int **m, int l)
 
 void dynamicProgramming(FILE *input, FILE *output)
 {
+	/* TODO Modularizar a função */
 	int l, h, x, k;
 	int *tamanho, *cost, *range, **memoization;
-	int offset, offend;
+	unsigned int offset, offend;
 	int numpalavras, linhasgeradas, length, funcaocusto, i, j, aux;
 	int inicio, final;
 	char *string;
@@ -40,8 +42,8 @@ void dynamicProgramming(FILE *input, FILE *output)
 	offset = ftell(input);
 	fseek(input, 0, SEEK_END);
 	offend = ftell(input);
-	fseek(input, offset, SEEK_SET);
 	string = (char*) malloc((offend - offset)*sizeof(char)); // Aloca o espaço máximo necessário para alocar uma palavra do texto de entrada
+	fseek(input, offset, SEEK_SET);
 
 	for(numpalavras = 0; fscanf(input, " %s", string) != EOF; numpalavras++);
 
@@ -128,7 +130,6 @@ void dynamicProgramming(FILE *input, FILE *output)
 		inicio = final;
 		final = range[aux];
 		aux = range[aux];
-		printf("inicio = %d / final = %d\n", inicio, final);
 		while(inicio != final)
 		{
 			fscanf(input, "%s", string);
@@ -154,43 +155,142 @@ void dynamicProgramming(FILE *input, FILE *output)
 
 void greedyHeuristic(FILE *input, FILE *output)
 {
-	/* TODO Pegar o texto e ver quantas palavras cabem no maximo de cada linha para minimizar o numero de espaços em branco em cada linha e calcular a função de custo pra cada */
+	/* TODO Pegar o texto e ver quantas palavras cabem no maximo de cada linha para minimizar o numero de espaços em branco em cada linha e calcular a função de custo pra cada, comparando de 2 em 2 linhas */
+	FILE *tmp;
 	int l, h, x, k;
-	char *string;
 	int offset, offend;
+	int aux, sum, *numpalavras, numlinhas, funcaocusto, i;
+	char *string;
+
+	tmp = fopen("tmp.txt", "w+r");
 
 	fscanf(input, "%d %d\n%d %d", &l, &h, &x, &k);
 
 	offset = ftell(input);
 	fseek(input, 0, SEEK_END);
 	offend = ftell(input);
-	fseek(input, offset, SEEK_SET);
 	string = (char*) malloc((offend - offset)*sizeof(char)); // Aloca o espaço máximo necessário para alocar uma palavra do texto de entrada
+	numpalavras = (int*) calloc(h,sizeof(int));
+	fseek(input, offset, SEEK_SET);
 
-	fscanf(input, " %s", string);
-	printf("%s\n", string);
+	aux = 0;
+	numlinhas = 0;
+	i = 0;
+	sum = 0;
+	while(fscanf(input, "%s", string) != EOF)
+	{
+		aux += strlen(string) + 1;
 
+		if(aux <= l+1)
+		{
+			fprintf(tmp, "%s ", string);
+			numpalavras[i]++;
+		}
 
+		else
+		{
+			aux -= strlen(string) + 1;
+			sum += k*pow((l-(aux-1)), x);
+			fseek(tmp, -1, SEEK_CUR);
+			fprintf(tmp, "\n");
+			numlinhas++;
+			i++;
+			fprintf(tmp, "%s ", string);
+			numpalavras[i]++;
+			aux = strlen(string) + 1;
+		}
+	}
+	fseek(tmp, -1, SEEK_CUR);
+	fprintf(tmp, "\n");
+	sum += k*pow((l-(aux-1)), x);
+	numlinhas++;
+
+	funcaocusto = k*pow((h-(numlinhas)), x) + sum;
+
+	fseek(tmp, 0, SEEK_SET);
+	fscanf(tmp, "%[^-1]", string);
+	fprintf(output, "%d\n%s", funcaocusto, string);
+
+	fclose(tmp);
+	remove("tmp.txt");
 	free(string);
+	free(numpalavras);
 }
 
 void bruteForce(FILE *input, FILE *output)
 {
 	/* TODO Pegar o texto e ver quantas palavras cabem no maximo de cada linha e calcular a função de custo de cada disposição -> Começando no máximo de palavras por linha e indo até sobrar uma palavra por linha -> Salvo o menor custo e o vetor Li -> Reconstruo a linha e imprimo o menor custo e a resposta */
+	FILE *tmp_1, *tmp_2;
 	int l, h, x, k;
-	char *string;
 	int offset, offend;
+	int aux, sum, *numpalavras, numlinhas, funcaocusto, i;
+	char *str;
+	char *string;
+
+	tmp_1 = fopen("tmp_1.txt", "w+r");
+	tmp_2 = fopen("tmp_2.txt", "w+r");
 
 	fscanf(input, "%d %d\n%d %d", &l, &h, &x, &k);
 
 	offset = ftell(input);
 	fseek(input, 0, SEEK_END);
 	offend = ftell(input);
-	fseek(input, offset, SEEK_SET);
 	string = (char*) malloc((offend - offset)*sizeof(char)); // Aloca o espaço máximo necessário para alocar uma palavra do texto de entrada
+	numpalavras = (int*) calloc(h,sizeof(int));
+	str = (char*) malloc(l+1*sizeof(char));
+	fseek(input, offset, SEEK_SET);
 
-	fscanf(input, " %s", string);
-	printf("%s\n", string);
+	aux = 0;
+	numlinhas = 0;
+	i = 0;
+	sum = 0;
+	while(fscanf(input, "%s", string) != EOF)
+	{
+		aux += strlen(string) + 1;
 
+		if(aux <= l+1)
+		{
+			fprintf(tmp_1, "%s ", string);
+			numpalavras[i]++;
+		}
+
+		else
+		{
+			aux -= strlen(string) + 1;
+			printf("aux = %d\n", aux);
+			sum += k*pow((l-(aux-1)), x);
+			fseek(tmp_1, -1, SEEK_CUR);
+			fprintf(tmp_1, "\n");
+			numlinhas++;
+			i++;
+			fprintf(tmp_1, "%s ", string);
+			numpalavras[i]++;
+			aux = strlen(string) + 1;
+		}
+	}
+	fseek(tmp_1, -1, SEEK_CUR);
+	fprintf(tmp_1, "\n");
+	sum += k*pow((l-(aux-1)), x);
+	numlinhas++;
+
+	/* TEST */
+	for(i = 0; i < h; i++)
+	{
+		printf("%d\n", numpalavras[i]);
+	} // End
+
+	funcaocusto = k*pow((h-(numlinhas)), x) + sum;
+	fseek(tmp_1, 0, SEEK_SET);
+	fgets(str, l+1, tmp_1);
+	printf("%s\n", str);
+
+	printf("funcao custo = %d\n", funcaocusto);
+
+	fclose(tmp_1);
+	fclose(tmp_2);
+	/* TEST remove("tmp_1.txt"); */
+	/* TEST remove("tmp_2.txt"); */
 	free(string);
+	free(str);
+	free(numpalavras);
 }

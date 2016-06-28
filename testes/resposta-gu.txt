@@ -1,0 +1,6 @@
+4246
+A way of classifying
+algorithms is by
+their design
+methodology or
+paradigm.

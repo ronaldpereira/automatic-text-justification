@@ -1,3 +1,3 @@
-108 20
-1 4
-mPx54GPSZ8bxMtLf2HhQtmEin1SaXbv3Ntyyi9dBVz8pO m83Q2C,YHETAfVrFYlbhLxqC5qA2NrEEjytZuQ85yMuzFY5saCdbXhTx60dm6NBY.FEgxjOMjOggPD3OSi,Q afN443CSYiL 664CXCrTeZ8s6f0r7B5Z fcf.OIclxd9W6SveUhJDFeeHbHjsjKyooK4AkupKYKmuyCz9JQTPZxQ8kOydcWhTgxcIYox WK5sEU1kQhh8d4WRUPsCm0XYnLqYV9TRXfMcxh6b46B,diaea,fLriAl8yMKOEri2mCZK6ZGhLE1HSZE,3j410vqix0xatfNX0 J m5fyi4,H7HXFx9,L1PZeihMI AUjGhSXf8QhwkU4llO1VZ rDhNDZKU8O4F .ra2bC Z q9DdrUyNg,x,jQEzbI,gCa98REehTY91CqIwI2C8TcVQNa2FIkcantjdUS2nUMf2wll5oyJwPfBLNMrO8EP,qr8tBx9I3k
+20 5
+3 2
+A way of classifying algorithms is by their design methodology or paradigm.
