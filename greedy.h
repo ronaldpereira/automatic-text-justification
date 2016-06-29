@@ -2,7 +2,6 @@
 #define GREEDY
 #include <stdio.h>
 
-/* functions */
-void greedyHeuristic(FILE *input, FILE *output);
+void greedyHeuristic(FILE *input, FILE *output); // Funcao que executa a heuristica gulosa
 
 #endif

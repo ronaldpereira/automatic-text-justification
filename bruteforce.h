@@ -2,7 +2,6 @@
 #define BRUTEFORCE
 #include <stdio.h>
 
-/* functions */
-void bruteForce(FILE *input, FILE *output);
+void bruteForce(FILE *input, FILE *output); // Funcao que executa o algoritmo de forca bruta
 
 #endif

@@ -2,7 +2,6 @@
 #define DYNAMIC
 #include <stdio.h>
 
-/* functions */
-void dynamicProgramming(FILE *input, FILE *output);
+void dynamicProgramming(FILE *input, FILE *output); // Funcao que executa o algoritmo de programacao dinamica
 
 #endif

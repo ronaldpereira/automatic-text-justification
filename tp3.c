@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
 	char option;
 	FILE *input, *output;
-	option = argv[1][1];
+	option = argv[1][1]; // Char que representa o argumento da escolha do algoritmo a ser executado
 	input = fopen(argv[2], "r");
 	output = fopen(argv[3], "w");
 

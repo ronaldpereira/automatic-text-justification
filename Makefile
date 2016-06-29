@@ -19,10 +19,10 @@ run:
 	make all && ./tp3.exe -d testes/teste.txt testes/resposta-pd.txt && ./tp3.exe -g testes/teste.txt testes/resposta-gu.txt && ./tp3.exe -b testes/teste.txt testes/resposta-fb.txt && make clean
 
 g:
-	make all && valgrind ./tp3.exe -g testes/teste.txt testes/resposta-gu.txt && make clean
+	make all && ./tp3.exe -g testes/teste.txt testes/resposta-gu.txt && make clean
 
 b:
-	make all && valgrind ./tp3.exe -b testes/teste.txt testes/resposta-fb.txt && make clean
+	make all && ./tp3.exe -b testes/teste.txt testes/resposta-fb.txt && make clean
 
 d:
-	make all && valgrind ./tp3.exe -d testes/teste.txt testes/resposta-pd.txt && make clean
+	make all && ./tp3.exe -d testes/teste.txt testes/resposta-pd.txt && make clean
